@@ -14,7 +14,7 @@ podTemplate(containers: [
 
     stage('Build and Push') {
       container('kaniko') {
-        sh '/kaniko/executor --context=dir://$PWD --dockerfile=Dockerfile --destination=${REGISTRY}:latest --cache=true --verbosity=info'
+        sh "/kaniko/executor --context=dir://${env.PWD} --dockerfile=Dockerfile --destination=${REGISTRY}:latest --cache=true --verbosity=info"
       }
     }
 
