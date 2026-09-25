@@ -1,6 +1,6 @@
 podTemplate(serviceAccountName: 'jenkins', containers: [
   containerTemplate(name: 'kaniko', image: 'gcr.io/kaniko-project/executor:debug', command: '/busybox/cat', ttyEnabled: true),
-  containerTemplate(name: 'gcloud', image: 'google/cloud-sdk:alpine', command: 'cat', ttyEnabled: true)
+  containerTemplate(name: 'gcloud', image: 'google/cloud-sdk:slim', command: 'cat', ttyEnabled: true)
 ]) {
   node(POD_LABEL) {
     def PROJECT = "project-10094705-9153-43d5-bb8"
@@ -22,7 +22,7 @@ podTemplate(serviceAccountName: 'jenkins', containers: [
       container('gcloud') {
         sh """
           gcloud container clusters get-credentials ${CLUSTER} --zone ${ZONE} --project ${PROJECT}
-          kubectl set image deployment/go-app go-app=${REGISTRY}:latest -n go-app --record
+          kubectl set image deployment/go-app go-app=${REGISTRY}:latest -n go-app
           kubectl rollout status deployment/go-app -n go-app
         """
       }
