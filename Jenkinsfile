@@ -1,4 +1,4 @@
-podTemplate(containers: [
+podTemplate(serviceAccountName: 'jenkins', containers: [
   containerTemplate(name: 'kaniko', image: 'gcr.io/kaniko-project/executor:debug', command: '/busybox/cat', ttyEnabled: true),
   containerTemplate(name: 'gcloud', image: 'google/cloud-sdk:alpine', command: 'cat', ttyEnabled: true)
 ]) {
